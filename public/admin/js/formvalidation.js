@@ -28,8 +28,8 @@ $(function () {
 			var currentYear = new Date().getFullYear();
 		
 			// Check if the value is optional or if it's a valid year between 1900 and the current year
-			return this.optional(element) || /^(19|20)\d{2}$/.test(value) && parseInt(value) <= currentYear && parseInt(value) <= 2024;
-		}, "Please enter a valid year");
+			return this.optional(element) || /^(19|20)\d{2}$/.test(value) && parseInt(value) >= 2004 && parseInt(value) <= currentYear && parseInt(value) <= 2024;
+			}, "Please enter a year between 2004 - 2024)");
 
 	    //check phone No hAS 10 digits
 	$.validator.addMethod('phoneIdigits', function (value, element) {
@@ -101,6 +101,10 @@ $(function () {
 		}, "Enter a valid rank");
 
 		$.validator.addMethod('commontest', function (value, element) {
+			if (this.optional(element)) {
+		        return true;
+		    }
+
 			// Convert the value to a number
 			var mark = parseFloat(value);
 		
@@ -109,7 +113,12 @@ $(function () {
 		}, "Enter a valid result");
 
 		$.validator.addMethod('numbersOnly', function(value, element) {
-			return /^[0-9]+$/.test(value);
+		    // Allow the field to pass validation if it's empty
+		    if (this.optional(element)) {
+		        return true;
+		    }
+		    // Check if the value contains only numbers
+		    return /^[0-9]+$/.test(value);
 		}, 'Please enter only numbers');
 
 	// Check for letters with spaces
