@@ -47,3 +47,7 @@ Route::post('completeApp', [HomeController::class,'completeApp'])->name('complet
 
 //submit educational qualification and submit for final page
 Route::post('submitApp', [HomeController::class,'submitApp'])->name('submitApp');
+
+Route::middleware(CheckDirectAccess::class)->get('/protected-page', function () {
+    // Logic for the protected page
+});
